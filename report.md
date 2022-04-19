@@ -16,6 +16,8 @@ For the Midterm Project, I chose to implement an algorithm that is essential in 
 ### Algorithm Introduction 
 
 NEO or Nonlinear Energy Operator, refers to the following calculation:
+
+
 ![formula](https://i.imgur.com/469F8zA.png)
 
 The main purpose of this calculation is to accentuate high-frequency content, and emphasize instantaneous changes. This is essential in detecting anomaly in EEG, where signals are often very tightly packed, making some spikes difficult to distinguish.
@@ -218,13 +220,13 @@ The third version of the NEO module follows mostly in the footstep of the second
 
 | Optimization | Total Runtime (ns) | Time Difference | Area | Area Difference | Average Latency (Cycles) |
 | -------- | -------- | -------- | ------ | ------ | ---- |
-| BANDWIDTH = 2 (PIPELINE-1 DPOPT)  | 50060     | -58%      | 5305.8| +79% | 8|
+| BANDWIDTH = 2 (PIPELINE-1 DPOPT)  | 50060     | -58%      | **5305.8**| **+79%** | 8|
 | BANDWIDTH = 3 (PIPELINE-1 DPOPT)  | 40020     | -76%     | 6263.4| +111% | 10|
 | BANDWIDTH = 4 (PIPELINE-1 DPOPT)  | 35060     | -70%       | 7242.0    | +144% | 12|
 | BANDWIDTH = 5 (PIPELINE-1 DPOPT)  | 32060     |-73%      | 8104.5     | +173% | 14|
 | BANDWIDTH = 6 (PIPELINE-1 DPOPT)  | 30060     | -75%     | 8958.9 | +202% | 16|
 | BANDWIDTH = 7 (PIPELINE-1 DPOPT)  | 28600     | -76%     | 9890.9 | +233% | 18|
-| BANDWIDTH = 8 (PIPELINE-1 DPOPT)  | 27500     | -77%     | 10781.5 | +263% | 20|
+| BANDWIDTH = 8 (PIPELINE-1 DPOPT)  | **27500**     | **-77%**     | 10781.5 | +263% | 20|
 
 
 
@@ -251,7 +253,7 @@ After looking at all the versions, the first version using pipeline still had th
 | -------- | -------- | -------- | ------ | ------ | ---- |
 | BANDWIDTH = 2 (PIPELINE-1 & UNROLLED LOOPS)  | 10040      | -91%      | 7093.3| +139% | 3|
 | BANDWIDTH = 3 (PIPELINE-1 & UNROLLED LOOPS)  | 6710    | -94%     | 10457.2| +252% | 3|
-| BANDWIDTH = 4 (PIPELINE-1 & UNROLLED LOOPS)  | 5040    | -95%     |  13554.7| +356% | 3|
+| BANDWIDTH = 4 (PIPELINE-1 & UNROLLED LOOPS)  | **5040**    | **-95%**     |  13554.7| +356% | 3|
 
 
 
@@ -323,3 +325,49 @@ Looking at the synthesis result of version 4, we can see that most of the area i
 
 ## Final Conlusion
 
+Take a look at the full comparison.
+
+| Optimization | Total Runtime (ns) | Time Difference | Area | Area Difference | Average Latency (Cycles) |
+| -------- | -------- | -------- | ------ | ------ | ---- |
+| [V1] No Optimization | 119950 | *benchmark*   | **2969.1** | *benchmark* | 5|
+| [V1] DPOPT    | 119950     | ±0%     | 3358.0 | +13% | 5|
+| [V1] LOOP_UNROLLING-4     | 134950     |+12%| 4360.5     | +46% | 5|
+| [V1] LOOP_UNROLLING-8     | 139950     |+12%| 5311.5     | +78% | 5|
+| [V1] PIPELINE-1     | 20040     | -83%     | 4532.4| +52% | 3|
+| [V1] PIPELINE-1 DPOPT   | 20040     | -83%     | 4150.4 | +39% | 3|
+| [V1] PIPELINE-2     | 40030     | -67%     | 3973.8 | +34% | 4|
+| [V1] PIPELINE-2 DPOPT  | 40030     | -67%     | 4208.8 | +41% | 4|
+| [V2] No Optimization | 113730 | -5%   | 14542.7| +389% | 89|
+| [V2] DPOPT    | 78050     | -35%     | 12515.8| +321% | 61|
+| [V2] LOOP_UNROLLING-2     | 113730     |-5%| 21346.5    | +618% | 89|
+| [V2] LOOP_UNROLLING-2 DPOPT     | 86970     |-38%| 17725.7     | +497% | 68|
+| [V2] PIPELINE-1     |42370     | -65%     | 16040.4 | +440% | 32|
+| [V2] PIPELINE-1 DPOPT   |42370     | -65%     | 9947.7 | +235% | 32|
+| [V2] PIPELINE-2 DPOPT  | 60210     | -50%     | 11368.7 | +282% | 47|
+| [V3] BANDWIDTH = 2 (PIPELINE-1 DPOPT)  | 50060     | -58%      | 5305.8| +79% | 8|
+| [V3] BANDWIDTH = 3 (PIPELINE-1 DPOPT)  | 40020     | -76%     | 6263.4| +111% | 10|
+| [V3] BANDWIDTH = 4 (PIPELINE-1 DPOPT)  | 35060     | -70%       | 7242.0    | +144% | 12|
+| [V3] BANDWIDTH = 5 (PIPELINE-1 DPOPT)  | 32060     |-73%      | 8104.5     | +173% | 14|
+| [V3] BANDWIDTH = 6 (PIPELINE-1 DPOPT)  | 30060     | -75%     | 8958.9 | +202% | 16|
+| [V3] BANDWIDTH = 7 (PIPELINE-1 DPOPT)  | 28600     | -76%     | 9890.9 | +233% | 18|
+| [V3] BANDWIDTH = 8 (PIPELINE-1 DPOPT)  | 27500     | -77%     | 10781.5 | +263% | 20|
+| [V4] BANDWIDTH = 2 (PIPELINE-1 & UNROLLED LOOPS)  | 10040      | -91%      | 7093.3| +139% | 3|
+| [V4] BANDWIDTH = 3 (PIPELINE-1 & UNROLLED LOOPS)  | 6710    | -94%     | 10457.2| +252% | 3|
+| [V4] BANDWIDTH = 4 (PIPELINE-1 & UNROLLED LOOPS)  | **5040**    | **-95%**     |  13554.7| +356% | 3
+
+At the two extremes, if we want only the lowest area, the original version without optimization is the smallest. If we only care about speed, the final version with pipelined unrolled loops run the fastest, albeit with much greater area.
+
+If we want something down the middle, pipelined versions with fewer inputs work quite well, and does not use too much area.
+
+### Application
+Since I had some actual patient data on hand, I snipped out 2000 samples, and plot out the results of the module.
+
+![](https://i.imgur.com/nqWmbt0.png)
+
+The blue line indicate the original EEG signal, and the orange line is the output of the NEO module. We can see that the spikes in the blue line is somewhat difficult to makeout, especially if we had to look at multiple channels at the same time, or look at longer period of data. The spike on the orange line however is very apparent and distinguishing the spike should be much easier.
+
+![](https://i.imgur.com/0EijQA5.png)
+
+Here, we added an additional adaptive threshold calculated using pure software. It is clear that the threshold will easily weed out any unwanted noise, allowing us to quickly discern where the spikes are. Currently, the threshold caluculation is not done on the NEO module since it uses requires a buffer size of at least a few hundred samples to work properly, and thus would completely overwhelm the area size, making our comparisons between different architecture meaningless. 
+
+However just with the NEO, we can see that using HLS, we can produce a design that is practical l in the real-time processing of EEG, and that the optimization directives allow us to speed up the design by a factor of nearly 20.
