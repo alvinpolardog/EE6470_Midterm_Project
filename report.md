@@ -17,7 +17,7 @@ For the Midterm Project, I chose to implement an algorithm that is essential in 
 
 NEO or Nonlinear Energy Operator, refers to the following calculation 
 <p align="center">
-<img src="https://latex.codecogs.com/svg.image?\large&space;\Psi&space;(n)&space;=&space;x^2&space;(n)&space;-&space;x(n&plus;1)&space;*&space;x(n-1)" />
+<img src="https://latex.codecogs.com/svg.image?\inline&space;\large&space;\bg{white}\Psi&space;(n)&space;=&space;x^2&space;(n)&space;-&space;x(n&plus;1)&space;*&space;x(n-1)" />
 </p>
 
 
